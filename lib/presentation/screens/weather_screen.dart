@@ -16,6 +16,28 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Widget errorWidget = const Center(
+      child: Text(
+        "Seems like there was an error",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+
+    Widget initialWidget = const Center(
+      child: Text(
+        "Enter a city below",
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -35,26 +57,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
               children: <Widget>[
                 Container(
                   height: MediaQuery.of(context).size.height / 2,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 16.0,
                     right: 16.0,
                   ),
                   child: BlocBuilder<WeatherBloc, WeatherState>(
                     builder: (context, state) {
                       if (state is WeatherInitial) {
-                        return Center(
-                          child: Text(
-                            "Enter a city below",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
+                        return initialWidget;
                       }
                       if (state is WeatherLoading) {
-                        return Center(child: CircularProgressIndicator());
+                        return Center(child: const CircularProgressIndicator());
                       } else if (state is WeatherLoaded) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,7 +75,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.location_pin,
                                   size: 56,
                                 ),
@@ -76,7 +89,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             ),
                             Text(
                               "${(state.weather.temperature - 273.15).toStringAsFixed(2)} °C",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 48,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -84,16 +97,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           ],
                         );
                       } else if (state is WeatherError) {
-                        return Center(
-                          child: Text(
-                            "Seems like there was an error",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
+                        return errorWidget;
                       } else {
                         return null;
                       }

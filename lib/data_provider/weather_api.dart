@@ -5,7 +5,7 @@ import 'dart:convert' as convert;
 class WeatherApi {
   //input personal api key here
   String apiKey = "";
-  
+
   Future getRawWeather(String city) async {
     String url =
         "http://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey";

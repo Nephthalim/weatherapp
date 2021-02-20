@@ -15,7 +15,7 @@ class CityInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 16.0,
           right: 16.0,
         ),
@@ -29,7 +29,7 @@ class CityInput extends StatelessWidget {
             controller: textFieldController,
             decoration: InputDecoration(
               suffixIcon: IconButton(
-                icon: Icon(Icons.search_rounded),
+                icon: const Icon(Icons.search_rounded),
                 onPressed: () {
                   context
                       .read<WeatherBloc>()
